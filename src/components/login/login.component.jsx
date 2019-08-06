@@ -12,7 +12,8 @@ export function Login() {
       username,
       password
     }
-    await post('/v1/login', request);
+    const response = await post('/authenticate', request);
+    sessionStorage.setItem('access_token', response.access_token);
   }
 
   return (

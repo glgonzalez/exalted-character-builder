@@ -1,4 +1,4 @@
-const domain = process.env.NODE_ENV === 'development' ? 'http://localhost:8000/api' : '';
+const domain = process.env.NODE_ENV === 'development' ? 'http://localhost:4000/api' : '';
 const headers = new Headers({
   'Content-Type': 'application/json'
 });
