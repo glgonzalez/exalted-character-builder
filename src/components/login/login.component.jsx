@@ -1,5 +1,5 @@
 import React, {useState, Fragment} from 'react';
-import {AppBar, TextField, Toolbar, Typography, FormControl, Button, Paper, Container} from '@material-ui/core';
+import {AppBar, TextField, Toolbar, Typography, FormControl, Button, Container} from '@material-ui/core';
 import { post } from '../../services/api-resources';
 
 export function Login() {
