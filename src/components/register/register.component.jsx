@@ -1,14 +1,20 @@
 import React, {useState, Fragment} from 'react';
-import {AppBar, TextField, Toolbar, Typography, FormControl, Button, Container} from '@material-ui/core';
-import {navigate} from '@reach/router';
-import './sign-up.css';
+import { AppBar, TextField, Toolbar, FormControl, Button, Container, Typography } from '@material-ui/core';
+import { Link } from 'react-router-dom';
+import { useHistory } from '../../app/history-context';
+import { useUser } from '../../app/user';
+import './register.scss';
 import { post } from '../../services/api-resources';
+import logo from './sb-logo-blackout.svg'
 
-export function SignUp() {
+export function Register() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmedPassword, setConfirmedPassword] = useState('');
   const [email, setEmail] = useState('');
+  
+  const { setLoginName, setUserId } = useUser();
+  const history = useHistory();
 
   const handleSubmit = async (event) => {
     try {
@@ -19,8 +25,12 @@ export function SignUp() {
         email
       }
       const response = await post('/users', request);
-      sessionStorage.setItem('access_token', response.access_token);
-      navigate('/dashboard');
+      await sessionStorage.setItem('access_token', response.access_token);
+      if (sessionStorage.getItem('access_token')) {
+        setLoginName(response.user.username);
+        setUserId(response.user.id);
+        history.push(`/characters/${response.user.id}`);
+      }
     } catch (err) {
       throw new Error(err);
     }
@@ -31,14 +41,19 @@ export function SignUp() {
   
   return (
     <Fragment>
-      <AppBar position="static">
+      <AppBar position="static" className='register-header'>
         <Toolbar>
-          <Typography variant="h6" color="inherit">
-            Sign Up
-          </Typography>
+          <Link to='/' className="logo">
+            <img src={logo} alt=''/>
+          </Link>
         </Toolbar>
       </AppBar>
-      <Container maxWidth='lg'>
+      <Container maxWidth='lg' className='signup-form'>
+        <div className='register-heading'>
+          <Typography variant='h6'>
+            Registration
+          </Typography>
+        </div>
         <form onSubmit={handleSubmit}>
           <FormControl>
             <TextField 
@@ -64,7 +79,7 @@ export function SignUp() {
               value={confirmedPassword}
               onChange={event => setConfirmedPassword(event.target.value)} />
             {!confirmPassword() ? "Passwords doesn't match": null}
-            <Button className='sign-up-button' type='submit' variant='contained' disabled={!username || !password || !confirmPassword()}>Sign Up</Button>
+            <Button className='sign-up-button' type='submit' variant='outlined' disabled={!username || !password || !confirmPassword()}>Sign Up</Button>
           </FormControl>
         </form>
       </Container>

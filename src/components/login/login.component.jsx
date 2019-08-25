@@ -1,6 +1,9 @@
-import React, {useState, Fragment} from 'react';
-import {AppBar, TextField, Toolbar, Typography, FormControl, Button, Container} from '@material-ui/core';
+import React, { useState, Fragment } from 'react';
+import { AppBar, TextField, Toolbar, FormControl, Button, Container } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import { post } from '../../services/api-resources';
+import './login.component.scss';
+import logo from '../../app/images/sb-logo.svg';
 
 export function Login() {
   const [username, setUsername] = useState('');
@@ -18,17 +21,21 @@ export function Login() {
 
   return (
     <Fragment>
-      <AppBar position="static">
+      <AppBar position="static" className='login-app-bar'>
         <Toolbar>
-          <Typography variant="h6" color="inherit">
-            Login
-          </Typography>
+          <Link to='/register' className='register-link'>
+            Register
+          </Link>
         </Toolbar>
       </AppBar>
-      <Container maxWidth='md'>
+      <Container maxWidth='md' className='login-form'>
+        <div className='logo'>
+          <img src={logo} alt='' />
+        </div>
         <form onSubmit={handleSubmit}>
           <FormControl>
             <TextField 
+              className='username'
               label="Username"
               value={username}
               onChange={(event) => {
@@ -42,7 +49,7 @@ export function Login() {
               onChange={event => {
                 setPassword(event.target.value)
               }}/>
-            <Button type='submit' variant='contained' disabled={!username || !password}>Login</Button>
+            <Button type='submit' variant='outlined' disabled={!username || !password} className='login-button'>Login</Button>
           </FormControl>
         </form>
       </Container>

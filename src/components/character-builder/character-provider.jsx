@@ -35,6 +35,6 @@ export function CharacterProvider({children}) {
   );
 }
 
-export function useCharacterState() {
+export function useCharacterContext() {
   return useContext(CharacterContext);
 }
