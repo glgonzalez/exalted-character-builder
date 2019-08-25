@@ -3,11 +3,16 @@ import React, {createElement, useEffect, useState, Fragment} from 'react';
 import {AppBar, Container, Card, Grid, Paper, Toolbar} from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { get } from '../../services';
+import { useUser } from '../../app/user';
 import logo from '../../app/images/sb-logo-blackout.svg';
 import './characters.scss';
 
 export const Characters = () => {
   const [characters, setCharacters] = useState(null);
+
+  const {loginName, userId} = useUser();
+
+  console.log('Login Name: ', loginName);
 
   // useEffect(() => {
   //   if (!characters) {
@@ -21,10 +26,10 @@ export const Characters = () => {
   return (
     <Fragment>
       <AppBar position="static" className='register-header'>
-        <Toolbar>
-          <Link to='/' className="logo">
+        <Toolbar className="logo">
+          <div className="logo">
             <img src={logo} alt=''/>
-          </Link>
+          </div>
         </Toolbar>
       </AppBar>
       <Grid container className='character-container'>

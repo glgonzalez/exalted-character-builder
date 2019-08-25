@@ -2,6 +2,7 @@ import React, {useState, Fragment} from 'react';
 import { AppBar, TextField, Toolbar, FormControl, Button, Container, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { useHistory } from '../../app/history-context';
+import { useUser } from '../../app/user';
 import './register.scss';
 import { post } from '../../services/api-resources';
 import logo from './sb-logo-blackout.svg'
@@ -11,7 +12,8 @@ export function Register() {
   const [password, setPassword] = useState('');
   const [confirmedPassword, setConfirmedPassword] = useState('');
   const [email, setEmail] = useState('');
-
+  
+  const { setLoginName, setUserId } = useUser();
   const history = useHistory();
 
   const handleSubmit = async (event) => {
@@ -23,9 +25,11 @@ export function Register() {
         email
       }
       const response = await post('/users', request);
-      sessionStorage.setItem('access_token', response.access_token);
+      await sessionStorage.setItem('access_token', response.access_token);
       if (sessionStorage.getItem('access_token')) {
-        history.push('/dashboard');
+        setLoginName(response.user.username);
+        setUserId(response.user.id);
+        history.push(`/characters/${response.user.id}`);
       }
     } catch (err) {
       throw new Error(err);
