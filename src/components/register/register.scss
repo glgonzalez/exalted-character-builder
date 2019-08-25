@@ -1,0 +1,53 @@
+.register-header {
+  div {
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+    @media screen and (max-width: 500px) {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
+}
+
+.MuiAppBar-colorPrimary {
+  background: #000000 !important;
+}
+
+.MuiFormControl-root.sign-up {
+  padding: 5px 0;
+  width: 300px;
+}
+
+.MuiButton-root.sign-up-button {
+  margin: 5px 0 0 0;
+}
+
+.logo {
+  width: 160px;
+  display: block;
+}
+
+.signup-form {
+  width: 100%;
+  height: 80%;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .register-heading {
+    padding: 5px;
+  }
+
+  form {
+    width: 400px;
+    border-top: 1px solid #000000;
+    
+    @media screen and (max-width: 500px) {
+      width: 300px;
+    }
+  }
+}

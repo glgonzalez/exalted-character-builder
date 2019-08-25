@@ -1,13 +1,14 @@
 import React from 'react';
-import {Router} from '@reach/router';
-import {Login, CharacterCreation, SignUp} from '../components';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {Login, CharacterBuilder, Register, Characters} from '../components';
 
 export function AppRoutes() {
   return (
-    <Router>
-      <Login path='/' />
-      <CharacterCreation path='character-creation/*' />
-      <SignUp path='sign-up' />
+    <Router className='router'>
+      <Route path='/' exact component={Login} />
+      <Route path='/register/' component={Register} />
+      <Route path='/characters/' component={Characters} />
+      <Route path='/builder/' component={CharacterBuilder} />
     </Router>
   );
 }

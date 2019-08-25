@@ -1,10 +1,10 @@
 import React, {useEffect, Fragment} from 'react';
 import { AppBar, Toolbar, Typography, Container, Button } from '@material-ui/core';
-import {useCharacterState} from '../character-provider';
+import {useCharacterContext} from '../character-provider';
 
 
 export function Attributes() {
-  const [{attributes}, dispatch] = useCharacterState();
+  const [{attributes}, dispatch] = useCharacterContext();
 
   useEffect(() => {
     return () => {};

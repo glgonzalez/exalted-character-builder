@@ -1,3 +1,4 @@
 export * from './login';
-export * from './character-creation';
-export * from './sign-up';
+export * from './character-builder';
+export * from './characters';
+export * from './register';
