@@ -1,0 +1,25 @@
+version: 2.1
+orbs:
+  node: circleci/node@5.0.2
+
+jobs:
+  build:
+    executor: node/default
+    steps:
+      - checkout
+      - run:
+          command: npm install
+          name: Install Deps
+          environment:
+            HOME: .
+      - run:
+          name: Run Build
+          command: npm run build
+      - store_artifacts:
+          path: ./build
+          destination: artifacts
+
+workflows:
+  build-workflow:
+    jobs:
+      - build
