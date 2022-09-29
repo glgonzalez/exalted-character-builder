@@ -1,11 +1,9 @@
 import React, {useState, Fragment} from 'react';
-import { AppBar, TextField, Toolbar, FormControl, Button, Container, Typography } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { TextField, FormControl, Button, Container, Typography } from '@material-ui/core';
 import { useHistory } from '../../app/history-context';
 import { useUser } from '../../app/user';
 import './register.scss';
 import { post } from '../../services/api-resources';
-import logo from './sb-logo-blackout.svg'
 
 export function Register() {
   const [username, setUsername] = useState('');
@@ -41,13 +39,6 @@ export function Register() {
   
   return (
     <Fragment>
-      <AppBar position="static" className='register-header'>
-        <Toolbar>
-          <Link to='/' className="logo">
-            <img src={logo} alt=''/>
-          </Link>
-        </Toolbar>
-      </AppBar>
       <Container maxWidth='lg' className='signup-form'>
         <div className='register-heading'>
           <Typography variant='h6'>

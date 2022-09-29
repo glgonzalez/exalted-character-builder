@@ -1,38 +1,32 @@
 import React, { useState, Fragment } from 'react';
-import { AppBar, TextField, Toolbar, FormControl, Button, Container } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { TextField, FormControl, Button } from '@material-ui/core';
+import { Redirect } from 'react-router';
 import { post } from '../../services/api-resources';
 import './login.component.scss';
-import logo from '../../app/images/sb-logo.svg';
 
 export function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
-    const request = {
-      username,
-      password
+    try {
+      event.preventDefault();
+      const request = {
+        username,
+        password
+      }
+      const response = await post('/authenticate', request);
+      sessionStorage.setItem('access_token', response.access_token);
     }
-    const response = await post('/authenticate', request);
-    sessionStorage.setItem('access_token', response.access_token);
+    catch (e) {
+      throw new Error(e);
+    }
   }
 
   return (
     <Fragment>
-      <AppBar position="static" className='login-app-bar'>
-        <Toolbar>
-          <Link to='/register' className='register-link'>
-            Register
-          </Link>
-        </Toolbar>
-      </AppBar>
-      <Container maxWidth='md' className='login-form'>
-        <div className='logo'>
-          <img src={logo} alt='' />
-        </div>
-        <form onSubmit={handleSubmit}>
+      {sessionStorage.getItem('access_token') ? <Redirect to="/characters" /> :
+        <form onSubmit={handleSubmit} id="login-form">
           <FormControl>
             <TextField 
               className='username'
@@ -51,8 +45,7 @@ export function Login() {
               }}/>
             <Button type='submit' variant='outlined' disabled={!username || !password} className='login-button'>Login</Button>
           </FormControl>
-        </form>
-      </Container>
+        </form>}
     </Fragment>
   );
 }

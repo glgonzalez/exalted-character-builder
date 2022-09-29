@@ -1,6 +1,6 @@
-import React, {createElement} from 'react';
+import React from 'react';
 import { Container, Typography } from '@material-ui/core';
-import {useHistory} from '../../../app/history-context';
+// import {useHistory} from '../../../app/history-context';
 
 export const Home = () => {
   return (

@@ -1,4 +1,4 @@
-import React, {createElement, createContext, useContext, useEffect, useMemo, useState} from 'react';
+import React, {createContext, useContext, useEffect, useMemo, useState} from 'react';
 import { get } from '../services';
 
 const UserContext = createContext();
